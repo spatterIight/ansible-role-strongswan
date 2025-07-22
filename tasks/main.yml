@@ -1,0 +1,42 @@
+---
+- name: Run Strongswan tasks
+  notify: Restart Strongswan
+  tags: ansible-role-strongswan
+  block:
+    - name: Install the Strongswan packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ strongswan_packages }}"
+
+    - name: Write ipsec.conf
+      ansible.builtin.copy:
+        content: "{{ ipsec_configuration | to_nice_yaml(indent=2, width=999999) }}"
+        dest: "{{ strongswan_base_path }}/ipsec.conf"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Write ipsec.secrets
+      ansible.builtin.copy:
+        content: "{{ ipsec_secrets_configuration | to_nice_yaml(indent=2, width=999999) }}"
+        dest: "{{ strongswan_base_path }}/ipsec.secrets"
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Write strongswan.conf
+      ansible.builtin.copy:
+        content: "{{ strongswan_configuration | to_nice_yaml(indent=2, width=999999) }}"
+        dest: "{{ strongswan_base_path }}/strongswan.conf"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Write charon-logging.conf
+      ansible.builtin.copy:
+        content: "{{ strongswan_logging_configuration | to_nice_yaml(indent=2, width=999999) }}"
+        dest: "{{ strongswan_config_dir_path }}/charon-logging.conf"
+        owner: root
+        group: root
+        mode: "0644"

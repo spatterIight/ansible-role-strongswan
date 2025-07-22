@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: spatterlight <spatterlight@spatterlight.space>
+  description: Install and configure Strongswan
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+        - noble
+  galaxy_tags:
+    - ansible-role-strongswan
+
+dependencies: []
