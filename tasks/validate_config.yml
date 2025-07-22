@@ -1,0 +1,13 @@
+---
+- name: Fail if required variables are undefined
+  ansible.builtin.assert:
+    that:
+      - vars[item] is defined
+      - vars[item] | length > 0
+    quiet: true
+    fail_msg: "The `{{ item }}` variable must be defined and have a non-null and non-empty value"
+  loop:
+    - ipsec_conf
+    - ipsec_secrets
+    - strongswan_conf
+  tags: ansible-role-strongswan

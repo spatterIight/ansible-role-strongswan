@@ -1,6 +1,5 @@
 ---
 strongswan_base_path: "/etc"
-strongswan_config_dir_path: "{{ strongswan_base_path }}/strongswan.d"
 
 # TODO -> Replace these legacy packages with 'swanctl/vici'
 # https://docs.strongswan.org/docs/latest/install/install.html

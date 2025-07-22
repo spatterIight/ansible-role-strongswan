@@ -1,4 +1,7 @@
 ---
+- ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
+  tags: ansible-role-strongswan
+
 - name: Run Strongswan tasks
   notify: Restart Strongswan
   tags: ansible-role-strongswan
@@ -10,33 +13,28 @@
       loop: "{{ strongswan_packages }}"
 
     - name: Write ipsec.conf
-      ansible.builtin.copy:
-        content: "{{ ipsec_configuration | to_nice_yaml(indent=2, width=999999) }}"
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/ipsec.conf.j2"
         dest: "{{ strongswan_base_path }}/ipsec.conf"
         owner: root
         group: root
         mode: "0644"
+        lstrip_blocks: true
 
     - name: Write ipsec.secrets
-      ansible.builtin.copy:
-        content: "{{ ipsec_secrets_configuration | to_nice_yaml(indent=2, width=999999) }}"
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/ipsec.secrets.j2"
         dest: "{{ strongswan_base_path }}/ipsec.secrets"
         owner: root
         group: root
         mode: "0600"
+        lstrip_blocks: true
 
     - name: Write strongswan.conf
-      ansible.builtin.copy:
-        content: "{{ strongswan_configuration | to_nice_yaml(indent=2, width=999999) }}"
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/strongswan.conf.j2"
         dest: "{{ strongswan_base_path }}/strongswan.conf"
         owner: root
         group: root
         mode: "0644"
-
-    - name: Write charon-logging.conf
-      ansible.builtin.copy:
-        content: "{{ strongswan_logging_configuration | to_nice_yaml(indent=2, width=999999) }}"
-        dest: "{{ strongswan_config_dir_path }}/charon-logging.conf"
-        owner: root
-        group: root
-        mode: "0644"
+        lstrip_blocks: true
