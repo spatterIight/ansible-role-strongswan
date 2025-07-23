@@ -11,7 +11,7 @@
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
-      loop: "{{ strongswan_packages }}"
+      loop: "{{ strongswan_packages + strongswan_additional_packages }}"
 
     - name: Write ipsec.conf
       ansible.builtin.template:

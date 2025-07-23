@@ -10,6 +10,12 @@ pip3 install -r requirements.yml
 
 # Execution
 
+Ubuntu 24.04:
 ```bash
-molecule test
+MOLECULE_DISTRO=ubuntu2404 molecule test
+```
+
+Ubuntu 22.04:
+```bash
+MOLECULE_DISTRO=ubuntu2204 molecule test
 ```

@@ -10,6 +10,7 @@ Currently the role only supports configuring the deprecated (but functional) `st
 
 This role has been tested as working on the following Linux distributions:
   - Ubuntu 24.04
+  - Ubuntu 22.04
 
 The Molecule directory contains scenarios for each supported distribution. The testing configuration is a simple Point-to-Point VPN. See the [Molecule README](./molecule/README.md) for instructions on testing.
 

@@ -11,13 +11,9 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
-    - name: Install required networking tools
+    - name: Install ping utility
       ansible.builtin.package:
-        name:
-          - iputils-ping
-          - net-tools
-          - iproute2
-          - bridge-utils
+        name: iputils-ping
         state: present
       when: ansible_os_family == 'Debian'
       ignore_errors: true
