@@ -24,9 +24,9 @@
           keyexchange=ikev2
           authby=psk
           left={{ peer1_ip }}
-          leftsubnet={{ peer1_subnet }}
+          leftsubnet=192.168.1.1/32
           right={{ peer2_ip }}
-          rightsubnet={{ peer2_subnet }}
+          rightsubnet=192.168.2.1/32
           ike=aes256-sha256-modp2048!
           esp=aes256-sha256!
           keyingtries=0
@@ -61,9 +61,9 @@
           keyexchange=ikev2
           authby=psk
           left={{ peer2_ip }}
-          leftsubnet={{ peer2_subnet }}
+          leftsubnet=192.168.2.1/32
           right={{ peer1_ip }}
-          rightsubnet={{ peer1_subnet }}
+          rightsubnet=192.168.1.1/32
           ike=aes256-sha256-modp2048!
           esp=aes256-sha256!
           keyingtries=0

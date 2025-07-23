@@ -34,7 +34,5 @@ provisioner:
     group_vars:
       all:
         strongswan_psk: "MySecurePreSharedKey123!"
-        peer1_subnet: "192.168.1.0/24"
-        peer2_subnet: "192.168.2.0/24"
 verifier:
   name: ansible

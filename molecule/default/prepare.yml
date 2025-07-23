@@ -29,26 +29,12 @@
         state: present
         reload: true
 
-    - name: Create dummy interface for peer1 tunnel subnet
-      ansible.builtin.command: ip link add dummy0 type dummy
-      when: inventory_hostname in groups['peer1']
-      ignore_errors: true
-      
-    - name: Configure peer1 tunnel gateway IP
-      ansible.builtin.command: ip addr add 192.168.1.1/24 dev dummy0
+    - name: Add tunnel IP to loopback for peer1
+      ansible.builtin.command: ip addr add 192.168.1.1/32 dev lo
       when: inventory_hostname in groups['peer1']
       ignore_errors: true
 
-    - name: Create dummy interface for peer2 tunnel subnet
-      ansible.builtin.command: ip link add dummy0 type dummy
+    - name: Add tunnel IP to loopback for peer2
+      ansible.builtin.command: ip addr add 192.168.2.1/32 dev lo
       when: inventory_hostname in groups['peer2']
-      ignore_errors: true
-      
-    - name: Configure peer2 tunnel gateway IP
-      ansible.builtin.command: ip addr add 192.168.2.1/24 dev dummy0
-      when: inventory_hostname in groups['peer2']
-      ignore_errors: true
-      
-    - name: Bring up dummy interfaces
-      ansible.builtin.command: ip link set dummy0 up
       ignore_errors: true
