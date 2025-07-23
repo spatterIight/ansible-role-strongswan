@@ -1,6 +1,8 @@
 ---
 driver:
   name: docker
+  options:
+    requirements-file: requirements.yml
 platforms:
   - name: strongswan-${MOLECULE_DISTRO:-ubuntu2404}-peer1
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2404}-ansible:latest"
