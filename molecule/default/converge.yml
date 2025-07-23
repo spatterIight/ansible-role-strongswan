@@ -17,7 +17,7 @@
     ipsec_conf: |
       config setup
           charondebug="all"
-          
+
       conn peer1-to-peer2
           type=tunnel
           auto=start
@@ -54,7 +54,7 @@
     ipsec_conf: |
       config setup
           charondebug="all"
-          
+
       conn peer2-to-peer1
           type=tunnel
           auto=start

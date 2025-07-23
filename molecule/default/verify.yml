@@ -25,11 +25,11 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Ping peer2 tunnel IP from peer1
+    - name: Ping peer2 tunnel IP from peer1 # noqa no-changed-when
       ansible.builtin.command: ping -c 3 192.168.2.1
       register: ping_peer2_tunnel
       ignore_errors: true
-      
+
     - name: Display ping results from peer1
       ansible.builtin.debug:
         var: ping_peer2_tunnel.stdout_lines
@@ -39,11 +39,11 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Ping peer1 tunnel IP from peer2
+    - name: Ping peer1 tunnel IP from peer2 # noqa no-changed-when
       ansible.builtin.command: ping -c 3 192.168.1.1
       register: ping_peer1_tunnel
       ignore_errors: true
-      
+
     - name: Display ping results from peer2
       ansible.builtin.debug:
         var: ping_peer1_tunnel.stdout_lines
