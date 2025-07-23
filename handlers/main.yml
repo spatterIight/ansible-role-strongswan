@@ -1,0 +1,7 @@
+---
+- name: Restart Strongswan
+  ansible.builtin.service:
+    name: "{{ strongswan_service_name }}"
+    enabled: "{{ strongswan_enable_service | bool }}"
+    state: restarted
+  tags: ansible-role-strongswan

@@ -1,0 +1,34 @@
+---
+# Specify packages (plugins?) to be installed in addition to 'strongswan_packages',
+strongswan_additional_packages: []
+  # - libcharon-extauth-plugins
+  # - libstrongswan-extra-plugins
+  # - libcharon-extra-plugins
+
+# Whether or not the 'strongswan-starter' service should be enabled to start at boot
+strongswan_enable_service: true
+
+# Your ipsec.conf configuration goes here
+# Documentation:
+#   - https://github.com/strongswan/strongswan/blob/master/src/starter/ipsec.conf
+#   - https://wiki.strongswan.org/projects/strongswan/wiki/connsection
+ipsec_conf: ""
+
+# Your ipsec.secrets configuration goes here
+# Documentation:
+#   - https://wiki.strongswan.org/projects/strongswan/wiki/Ipsecsecrets
+ipsec_secrets: ""
+
+# Your strongswan.conf configuration goes here
+# Documentation:
+#   - https://github.com/strongswan/strongswan/blob/master/conf/strongswan.conf
+#   - https://docs.strongswan.org/docs/latest/config/strongswanConf.html
+strongswan_conf: |
+  charon {
+    load_modular = yes
+    plugins {
+      include strongswan.d/charon/*.conf
+    }
+  }
+
+  include strongswan.d/*.conf
