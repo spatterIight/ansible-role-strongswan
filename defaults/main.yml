@@ -1,4 +1,11 @@
 ---
+# Specify packages to be installed in addition to 'strongswan_packages'
+strongswan_additional_packages: []
+  # - libcharon-extauth-plugins
+  # - libstrongswan-extra-plugins
+  # - libcharon-extra-plugins
+
+# Whether or not the 'strongswan-starter' service should be enabled to start at boot
 strongswan_enable_service: true
 
 # Your ipsec.conf configuration goes here

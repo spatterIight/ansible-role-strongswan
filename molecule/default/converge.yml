@@ -24,9 +24,9 @@
           keyexchange=ikev2
           authby=psk
           left={{ peer1_ip }}
-          leftsubnet={{ tunnel_local_subnet }}
+          leftsubnet={{ peer1_subnet }}
           right={{ peer2_ip }}
-          rightsubnet={{ tunnel_remote_subnet }}
+          rightsubnet={{ peer2_subnet }}
           ike=aes256-sha256-modp2048!
           esp=aes256-sha256!
           keyingtries=0
@@ -61,9 +61,9 @@
           keyexchange=ikev2
           authby=psk
           left={{ peer2_ip }}
-          leftsubnet={{ tunnel_remote_subnet }}
+          leftsubnet={{ peer2_subnet }}
           right={{ peer1_ip }}
-          rightsubnet={{ tunnel_local_subnet }}
+          rightsubnet={{ peer1_subnet }}
           ike=aes256-sha256-modp2048!
           esp=aes256-sha256!
           keyingtries=0
