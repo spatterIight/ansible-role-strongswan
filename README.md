@@ -4,7 +4,7 @@
 
 An Ansible role to install and configure Strongswan, an IPsec VPN implementation for Linux servers.
 
-Currently the role only supports configuring the deprecated (but functional) `stroke` plugin resources (`ipsec.conf`, `ipsec.secrets`). In the future support for the `vici` API resources (`swanctl.conf`).
+Currently the role only supports configuring the deprecated (but functional) `stroke` plugin resources (`ipsec.conf`, `ipsec.secrets`). In the future support for the `vici` API resources (`swanctl.conf`) will be added.
 
 ## Supported distributions
 
