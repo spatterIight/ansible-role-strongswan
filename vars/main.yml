@@ -8,4 +8,3 @@ strongswan_packages:
   - strongswan-charon
 
 strongswan_service_name: strongswan-starter
-

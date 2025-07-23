@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
+- name: Run configuration validation tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
   tags: ansible-role-strongswan
 
 - name: Run Strongswan tasks
