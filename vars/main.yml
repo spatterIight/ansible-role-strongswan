@@ -9,4 +9,5 @@ strongswan_vici_packages:
   - strongswan-swanctl
   - charon-systemd
 
-strongswan_service_name: strongswan-starter
+strongswan_stroke_service_name: strongswan-starter
+strongswan_vici_service_name: strongswan

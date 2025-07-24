@@ -4,7 +4,7 @@ driver:
   options:
     requirements-file: requirements.yml
 platforms:
-  - name: strongswan-${MOLECULE_DISTRO:-ubuntu2404}-peer1
+  - name: strongswan-${MOLECULE_DISTRO:-ubuntu2404}-stroke-peer1
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2404}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
@@ -14,7 +14,7 @@ platforms:
     pre_build_image: true
     groups:
       - peer1
-  - name: strongswan-${MOLECULE_DISTRO:-ubuntu2404}-peer2
+  - name: strongswan-${MOLECULE_DISTRO:-ubuntu2404}-stroke-peer2
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2404}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:

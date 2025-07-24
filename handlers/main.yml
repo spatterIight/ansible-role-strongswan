@@ -1,7 +1,14 @@
 ---
 - name: Restart Strongswan (stroke)
   ansible.builtin.service:
-    name: "{{ strongswan_service_name }}"
+    name: "{{ strongswan_stroke_service_name }}"
+    enabled: "{{ strongswan_enable_service | bool }}"
+    state: restarted
+  tags: ansible-role-strongswan
+
+- name: Restart Strongswan (vici)
+  ansible.builtin.service:
+    name: "{{ strongswan_vici_service_name }}"
     enabled: "{{ strongswan_enable_service | bool }}"
     state: restarted
   tags: ansible-role-strongswan

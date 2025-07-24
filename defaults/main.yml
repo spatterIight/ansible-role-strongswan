@@ -9,7 +9,10 @@ strongswan_additional_packages: []
   # - libstrongswan-extra-plugins
   # - libcharon-extra-plugins
 
-# Whether or not the 'strongswan-starter' service should be enabled to start at boot
+# Whether or not the Strongswan service should be enabled to start at boot
+# Note: The service has a different name depending on the mode
+#   - Vici mode: strongswan
+#   - Stroke mode: strongswan-starter
 strongswan_enable_service: true
 
 ####################

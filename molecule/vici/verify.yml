@@ -4,19 +4,19 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Get IPsec status
-      ansible.builtin.command: ipsec status
-      register: ipsec_status_check
+    - name: Get swanctl connections status
+      ansible.builtin.command: swanctl --list-sas
+      register: swanctl_status_check
       changed_when: false
 
-    - name: Display IPsec status for debugging
+    - name: Display swanctl status for debugging
       ansible.builtin.debug:
-        var: ipsec_status_check.stdout_lines
+        var: swanctl_status_check.stdout_lines
 
     - name: Check for active IPsec connections
       ansible.builtin.assert:
         that:
-          - ipsec_status_check.stdout is search("ESTABLISHED")
+          - swanctl_status_check.stdout is search("ESTABLISHED")
         fail_msg: "No ESTABLISHED IPsec connections found"
         success_msg: "IPsec connection is ESTABLISHED"
 
