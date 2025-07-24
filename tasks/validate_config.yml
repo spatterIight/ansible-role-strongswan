@@ -1,5 +1,5 @@
 ---
-- name: Fail if required variables are undefined
+- name: Fail if required variables are undefined (stroke)
   ansible.builtin.assert:
     that:
       - vars[item] is defined
@@ -9,5 +9,28 @@
   loop:
     - ipsec_conf
     - ipsec_secrets
+  when: strongswan_mode == "stroke"
+  tags: ansible-role-strongswan
+
+- name: Fail if required variables are undefined (vici)
+  ansible.builtin.assert:
+    that:
+      - vars[item] is defined
+      - vars[item] | length > 0
+    quiet: true
+    fail_msg: "The `{{ item }}` variable must be defined and have a non-null and non-empty value"
+  loop:
+    - swanctl_conf
+  when: strongswan_mode == "vici"
+  tags: ansible-role-strongswan
+
+- name: Fail if required variables are undefined
+  ansible.builtin.assert:
+    that:
+      - vars[item] is defined
+      - vars[item] | length > 0
+    quiet: true
+    fail_msg: "The `{{ item }}` variable must be defined and have a non-null and non-empty value"
+  loop:
     - strongswan_conf
   tags: ansible-role-strongswan

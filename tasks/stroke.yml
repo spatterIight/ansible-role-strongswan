@@ -1,0 +1,67 @@
+---
+- name: Disable vici mode when using stroke
+  tags: ansible-role-strongswan
+  block:
+    - name: Stop and disable strongswan service (vici)
+      ansible.builtin.service:
+        name: "{{ strongswan_vici_service_name }}"
+        state: stopped
+        enabled: false
+      failed_when: false
+
+    - name: Remove vici configuration files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ strongswan_base_path }}/swanctl/swanctl.conf"
+        - "{{ strongswan_base_path }}/swanctl"
+      failed_when: false
+
+    - name: Remove vici packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ strongswan_vici_packages }}"
+      failed_when: false
+
+- name: Install the Strongswan packages (stroke)
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ strongswan_stroke_packages + strongswan_additional_packages }}"
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write ipsec.conf
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ipsec.conf.j2"
+    dest: "{{ strongswan_base_path }}/ipsec.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write ipsec.secrets
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ipsec.secrets.j2"
+    dest: "{{ strongswan_base_path }}/ipsec.secrets"
+    owner: root
+    group: root
+    mode: "0600"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write strongswan.conf
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/strongswan.conf.j2"
+    dest: "{{ strongswan_base_path }}/strongswan.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan

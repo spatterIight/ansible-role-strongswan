@@ -1,10 +1,13 @@
 ---
 strongswan_base_path: "/etc"
 
-# TODO -> Replace these legacy packages with 'swanctl/vici'
-# https://docs.strongswan.org/docs/latest/install/install.html
-strongswan_packages:
+strongswan_stroke_packages:
   - strongswan-starter
   - strongswan-charon
 
-strongswan_service_name: strongswan-starter
+strongswan_vici_packages:
+  - strongswan-swanctl
+  - charon-systemd
+
+strongswan_stroke_service_name: strongswan-starter
+strongswan_vici_service_name: strongswan
