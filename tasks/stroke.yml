@@ -1,4 +1,30 @@
 ---
+- name: Disable vici mode when using stroke
+  block:
+    - name: Stop and disable strongswan service (vici)
+      ansible.builtin.service:
+        name: "{{ strongswan_vici_service_name }}"
+        state: stopped
+        enabled: false
+      ignore_errors: true
+
+    - name: Remove vici configuration files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ strongswan_base_path }}/swanctl/swanctl.conf"
+        - "{{ strongswan_base_path }}/swanctl"
+      ignore_errors: true
+
+    - name: Remove vici packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ strongswan_vici_packages }}"
+      ignore_errors: true
+  tags: ansible-role-strongswan
+
 - name: Install the Strongswan packages (stroke)
   ansible.builtin.package:
     name: "{{ item }}"
