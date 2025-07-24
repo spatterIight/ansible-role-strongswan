@@ -13,7 +13,7 @@
     dest: "{{ strongswan_base_path }}/swanctl/swanctl.conf"
     owner: root
     group: root
-    mode: "0644"
+    mode: "0600"
     lstrip_blocks: true
   notify: Restart Strongswan (vici)
   tags: ansible-role-strongswan
