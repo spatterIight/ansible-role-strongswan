@@ -3,7 +3,7 @@ galaxy_info:
   author: spatterlight
   role_name: strongswan
   description: Install and configure Strongswan
-  license: MIT
+  license: AGPL-3.0-or-later
   min_ansible_version: '2.4'
   platforms:
     - name: Ubuntu
