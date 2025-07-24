@@ -44,7 +44,7 @@
           reauth_time = 24h
         }
       }
-      
+
       secrets {
         ike-1 {
           id = {{ peer1_ip }}
@@ -94,7 +94,7 @@
           reauth_time = 24h
         }
       }
-      
+
       secrets {
         ike-1 {
           id = {{ peer2_ip }}
