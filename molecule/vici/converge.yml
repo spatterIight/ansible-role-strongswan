@@ -1,0 +1,36 @@
+---
+- name: Gather Facts from All Hosts
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Ensure all facts are gathered
+      ansible.builtin.setup:
+
+- name: Configure StrongSwan Peer 1
+  hosts: peer1
+  become: true
+  gather_facts: false
+  vars:
+    peer1_ip: "{{ ansible_default_ipv4.address }}"
+    peer2_ip: "{{ hostvars[groups['peer2'][0]]['ansible_default_ipv4']['address'] }}"
+    swanctl_conf: |
+
+  tasks:
+    - name: Run the ansible-role-strongswan role for peer1
+      ansible.builtin.include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+
+- name: Configure StrongSwan Peer 2
+  hosts: peer2
+  become: true
+  gather_facts: false
+  vars:
+    peer1_ip: "{{ hostvars[groups['peer1'][0]]['ansible_default_ipv4']['address'] }}"
+    peer2_ip: "{{ ansible_default_ipv4.address }}"
+    swanctl_conf: |
+
+  tasks:
+    - name: Run the ansible-role-strongswan role for peer2
+      ansible.builtin.include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
