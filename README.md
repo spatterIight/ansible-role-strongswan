@@ -4,7 +4,7 @@
 
 An Ansible role to install and configure Strongswan, an IPsec VPN implementation for Linux servers.
 
-Currently the role only supports configuring the deprecated (but functional) `stroke` plugin resources (`ipsec.conf`, `ipsec.secrets`). In the future support for the `vici` API resources (`swanctl.conf`) will be added.
+This role supports configuring both the deprecated (but functional) `stroke` plugin resources (`ipsec.conf`, `ipsec.secrets`) and the new `vici` resources (`swanctl.conf`). You must select one or the other though, not both.
 
 ## Supported distributions
 
@@ -24,17 +24,38 @@ The Molecule directory contains scenarios for each supported distribution. The t
 | `strongswan_enable_service`     | `true`                  | No       | Whether the strongswan-starter service should be enabled at boot     |
 | `strongswan_additional_packages`| `[]`                    | No       | Additional StrongSwan packages to install beyond the base packages   |
 
-## Example Playbook
+## Example Playbook (vici)
 
 ```yaml
 ---
-- hosts: vpn_server
+- hosts: new_vpn_server
+  become: true
+  gather_facts: true
+  roles:
+    - ansible-role-strongswan
+  vars:
+    # Basic site-to-site VPN configuration    
+    swanctl_conf: |
+
+    # Optional: Enable additional plugins
+    strongswan_additional_packages:
+      - libcharon-extra-plugins
+      - libstrongswan-extra-plugins
+```
+
+## Example Playbook (stroke)
+
+```yaml
+---
+- hosts: old_vpn_server
   become: true
   gather_facts: true
   roles:
     - ansible-role-strongswan
   vars:
     # Basic site-to-site VPN configuration
+    strongswan_mode: stroke
+    
     ipsec_conf: |
       config setup
         charondebug="ike 1, knl 1, cfg 0"
@@ -62,17 +83,4 @@ The Molecule directory contains scenarios for each supported distribution. The t
     strongswan_additional_packages:
       - libcharon-extra-plugins
       - libstrongswan-extra-plugins
-
-    # Optional: Custom strongswan.conf (uses sensible defaults if not specified)
-    strongswan_conf: |
-      charon {
-        load_modular = yes
-        plugins {
-          include strongswan.d/charon/*.conf
-        }
-        dns1 = 8.8.8.8
-        dns2 = 8.8.4.4
-      }
-
-      include strongswan.d/*.conf
 ```

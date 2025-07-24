@@ -1,0 +1,41 @@
+---
+- name: Install the Strongswan packages (stroke)
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ strongswan_stroke_packages + strongswan_additional_packages }}"
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write ipsec.conf
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ipsec.conf.j2"
+    dest: "{{ strongswan_base_path }}/ipsec.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write ipsec.secrets
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ipsec.secrets.j2"
+    dest: "{{ strongswan_base_path }}/ipsec.secrets"
+    owner: root
+    group: root
+    mode: "0600"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan
+
+- name: Write strongswan.conf
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/strongswan.conf.j2"
+    dest: "{{ strongswan_base_path }}/strongswan.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    lstrip_blocks: true
+  notify: Restart Strongswan (stroke)
+  tags: ansible-role-strongswan

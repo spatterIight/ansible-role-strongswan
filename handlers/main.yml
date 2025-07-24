@@ -1,5 +1,5 @@
 ---
-- name: Restart Strongswan
+- name: Restart Strongswan (stroke)
   ansible.builtin.service:
     name: "{{ strongswan_service_name }}"
     enabled: "{{ strongswan_enable_service | bool }}"

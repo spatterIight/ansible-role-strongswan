@@ -3,39 +3,12 @@
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
   tags: ansible-role-strongswan
 
-- name: Run Strongswan tasks
-  notify: Restart Strongswan
+- name: Run stroke tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/stroke.yml"
+  when: strongswan_mode == "stroke"
   tags: ansible-role-strongswan
-  block:
-    - name: Install the Strongswan packages
-      ansible.builtin.package:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ strongswan_packages + strongswan_additional_packages }}"
 
-    - name: Write ipsec.conf
-      ansible.builtin.template:
-        src: "{{ role_path }}/templates/ipsec.conf.j2"
-        dest: "{{ strongswan_base_path }}/ipsec.conf"
-        owner: root
-        group: root
-        mode: "0644"
-        lstrip_blocks: true
-
-    - name: Write ipsec.secrets
-      ansible.builtin.template:
-        src: "{{ role_path }}/templates/ipsec.secrets.j2"
-        dest: "{{ strongswan_base_path }}/ipsec.secrets"
-        owner: root
-        group: root
-        mode: "0600"
-        lstrip_blocks: true
-
-    - name: Write strongswan.conf
-      ansible.builtin.template:
-        src: "{{ role_path }}/templates/strongswan.conf.j2"
-        dest: "{{ strongswan_base_path }}/strongswan.conf"
-        owner: root
-        group: root
-        mode: "0644"
-        lstrip_blocks: true
+- name: Run vici tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/vici.yml"
+  when: strongswan_mode == "vici"
+  tags: ansible-role-strongswan

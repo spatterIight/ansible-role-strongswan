@@ -35,6 +35,7 @@ provisioner:
   inventory:
     group_vars:
       all:
+        strongswan_mode: stroke
         strongswan_psk: "MySecurePreSharedKey123!"
 verifier:
   name: ansible

@@ -1,4 +1,8 @@
 ---
+# Specifies whether to use the deprecated 'stroke' resources (ipsec.conf, ipsec.secrets)
+# or the new 'vici' resources (swanctl.conf)
+strongswan_mode: vici
+
 # Specify packages (plugins?) to be installed in addition to 'strongswan_packages',
 strongswan_additional_packages: []
   # - libcharon-extauth-plugins
@@ -7,6 +11,19 @@ strongswan_additional_packages: []
 
 # Whether or not the 'strongswan-starter' service should be enabled to start at boot
 strongswan_enable_service: true
+
+####################
+## vici resources ##
+####################
+
+# Your swanctl.conf configuration goes here
+# Documentation:
+#   - https://docs.strongswan.org/docs/latest/swanctl/swanctlConf.html
+swanctl_conf: ""
+
+######################
+## stroke resources ##
+######################
 
 # Your ipsec.conf configuration goes here
 # Documentation:
@@ -18,6 +35,10 @@ ipsec_conf: ""
 # Documentation:
 #   - https://wiki.strongswan.org/projects/strongswan/wiki/Ipsecsecrets
 ipsec_secrets: ""
+
+####################
+## misc resources ##
+####################
 
 # Your strongswan.conf configuration goes here
 # Documentation:
