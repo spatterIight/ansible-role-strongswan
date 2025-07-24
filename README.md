@@ -18,11 +18,17 @@ The Molecule directory contains scenarios for each supported distribution. The t
 
 | Variable                        | Default                 | Required | Description                                                          |
 |---------------------------------|-------------------------|----------|----------------------------------------------------------------------|
-| `ipsec_conf`                    | `""`                    | Yes      | IPsec configuration content for `/etc/ipsec.conf`                    |
-| `ipsec_secrets`                 | `""`                    | Yes      | IPsec secrets configuration for `/etc/ipsec.secrets`                 |
-| `strongswan_conf`               | See `defaults/main.yml` | No       | StrongSwan daemon configuration for `/etc/strongswan.conf`           |
-| `strongswan_enable_service`     | `true`                  | No       | Whether the strongswan-starter service should be enabled at boot     |
+| `strongswan_mode`               | `vici`                  | No       | Configuration mode: `vici` (modern) or `stroke` (deprecated)         |
+| `strongswan_enable_service`     | `true`                  | No       | Whether the StrongSwan service should be enabled at boot             |
 | `strongswan_additional_packages`| `[]`                    | No       | Additional StrongSwan packages to install beyond the base packages   |
+| `strongswan_conf`               | See `defaults/main.yml` | No       | StrongSwan daemon configuration for `/etc/strongswan.conf`           |
+| **Vici Mode Variables**         |                         |          |                                                                      |
+| `swanctl_conf`                  | `""`                    | Yes*     | swanctl configuration content for `/etc/swanctl/swanctl.conf`        |
+| **Stroke Mode Variables**       |                         |          |                                                                      |
+| `ipsec_conf`                    | `""`                    | Yes*     | IPsec configuration content for `/etc/ipsec.conf`                    |
+| `ipsec_secrets`                 | `""`                    | Yes*     | IPsec secrets configuration for `/etc/ipsec.secrets`                 |
+
+*Required only when using the respective mode (vici or stroke).
 
 ## Example Playbook (vici)
 
@@ -36,6 +42,42 @@ The Molecule directory contains scenarios for each supported distribution. The t
   vars:
     # Basic site-to-site VPN configuration    
     swanctl_conf: |
+      connections {
+        site-to-site {
+          version = 2
+          local_addrs = %defaultroute
+          remote_addrs = 10.10.10.10
+          local {
+            auth = psk
+            id = site1.example.com
+          }
+          remote {
+            auth = psk
+            id = site2.example.com
+          }
+          children {
+            site-to-site {
+              local_ts = 192.168.1.0/24
+              remote_ts = 192.168.2.0/24
+              esp_proposals = aes256-sha256
+              dpd_action = restart
+              start_action = start
+            }
+          }
+          proposals = aes256-sha256-modp2048
+          dpd_delay = 30s
+          dpd_timeout = 120s
+          rekey_time = 8h
+          reauth_time = 24h
+        }
+      }
+      
+      secrets {
+        ike-psk {
+          id = site1.example.com
+          secret = "MySecurePreSharedKey123!"
+        }
+      }
 
     # Optional: Enable additional plugins
     strongswan_additional_packages:
@@ -77,10 +119,5 @@ The Molecule directory contains scenarios for each supported distribution. The t
         auto=start
 
     ipsec_secrets: |
-      192.168.1.1 192.168.2.1 : PSK "your-pre-shared-key-here"
-
-    # Optional: Enable additional plugins
-    strongswan_additional_packages:
-      - libcharon-extra-plugins
-      - libstrongswan-extra-plugins
+      192.168.1.1 192.168.2.1 : PSK "MySecurePreSharedKey123!"
 ```

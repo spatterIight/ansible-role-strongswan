@@ -3,7 +3,7 @@
 # or the new 'vici' resources (swanctl.conf)
 strongswan_mode: vici
 
-# Specify packages (plugins?) to be installed in addition to 'strongswan_packages',
+# Specify packages (plugins?) to be installed in addition to 'strongswan_stroke/vici_packages',
 strongswan_additional_packages: []
   # - libcharon-extauth-plugins
   # - libstrongswan-extra-plugins
