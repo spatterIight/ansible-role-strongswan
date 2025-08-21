@@ -1,0 +1,12 @@
+---
+# Packages needed by both stroke & vici mode
+strongswan_both_packages:
+  - libstrongswan-extra-plugins # This seems to be required in Debian for some reason
+
+strongswan_stroke_packages:
+  - strongswan-starter
+  - strongswan-charon
+
+strongswan_vici_packages:
+  - strongswan-swanctl
+  - charon-systemd

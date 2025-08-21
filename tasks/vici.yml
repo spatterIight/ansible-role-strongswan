@@ -29,7 +29,7 @@
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  loop: "{{ strongswan_vici_packages + strongswan_additional_packages }}"
+  loop: "{{ strongswan_vici_packages + strongswan_both_packages + strongswan_additional_packages }}"
   notify: Restart Strongswan (vici)
   tags: ansible-role-strongswan
 
