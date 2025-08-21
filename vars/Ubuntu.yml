@@ -1,0 +1,8 @@
+---
+strongswan_stroke_packages:
+  - strongswan-starter
+  - strongswan-charon
+
+strongswan_vici_packages:
+  - strongswan-swanctl
+  - charon-systemd

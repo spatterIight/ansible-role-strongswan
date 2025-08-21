@@ -1,13 +1,12 @@
 ---
 strongswan_base_path: "/etc"
 
-strongswan_stroke_packages:
-  - strongswan-starter
-  - strongswan-charon
+# Package names to support stroke & vici mode
+strongswan_stroke_packages: []
+strongswan_vici_packages: []
 
-strongswan_vici_packages:
-  - strongswan-swanctl
-  - charon-systemd
+# Packages needed by both stroke & vici mode
+strongswan_both_packages: []
 
 strongswan_stroke_service_name: strongswan-starter
 strongswan_vici_service_name: strongswan

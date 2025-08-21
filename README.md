@@ -9,8 +9,10 @@ This role supports configuring both the deprecated (but functional) `stroke` plu
 ## Supported distributions
 
 This role has been tested as working on the following Linux distributions:
-  - Ubuntu 24.04
-  - Ubuntu 22.04
+  - Ubuntu 24.04 (Noble Numbat)
+  - Ubuntu 22.04 (Jammy Jellyfish)
+  - Debian 13 (Trixie)
+  - Debian 12 (Bookworm)
 
 The Molecule directory contains scenarios for each supported distribution. The testing configuration is a simple Point-to-Point VPN. See the [Molecule README](./molecule/README.md) for instructions on testing.
 

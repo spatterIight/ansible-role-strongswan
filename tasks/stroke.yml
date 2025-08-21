@@ -29,7 +29,7 @@
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  loop: "{{ strongswan_stroke_packages + strongswan_additional_packages }}"
+  loop: "{{ strongswan_stroke_packages + strongswan_both_packages + strongswan_additional_packages }}"
   notify: Restart Strongswan (stroke)
   tags: ansible-role-strongswan
 
