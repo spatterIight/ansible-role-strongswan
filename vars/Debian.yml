@@ -1,5 +1,4 @@
 ---
-# Packages needed by both stroke & vici mode
 strongswan_both_packages:
   - libstrongswan-extra-plugins # This seems to be required in Debian for some reason
 
