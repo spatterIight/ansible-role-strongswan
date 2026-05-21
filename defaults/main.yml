@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 ---
 # Specifies whether to use the deprecated 'stroke' resources (ipsec.conf, ipsec.secrets)
 # or the new 'vici' resources (swanctl.conf)
