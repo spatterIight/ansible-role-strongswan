@@ -15,8 +15,6 @@ This role has been tested as working on the following Linux distributions:
 - Debian 13 (Trixie)
 - Debian 12 (Bookworm)
 
-The Molecule directory contains scenarios for each supported distribution. The testing configuration is a simple Point-to-Point VPN. See the [Molecule README](./molecule/README.md) for instructions on testing.
-
 ## Role Variables
 
 | Variable                        | Default                 | Required | Description                                                          |
@@ -124,3 +122,9 @@ The Molecule directory contains scenarios for each supported distribution. The t
     ipsec_secrets: |
       192.168.1.1 192.168.2.1 : PSK "MySecurePreSharedKey123!"
 ```
+
+## Molecule
+
+This role supports [Molecule](https://docs.ansible.com/projects/molecule/), an Ansible testing framework designed for developing and testing Ansible collections, playbooks, and roles.
+
+Refer to [this page](./molecule/README.md) for details about how to utilize it.
