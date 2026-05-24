@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ---
-- name: Fail if required variables are undefined (stroke)
+- name: Fail if required Strongswan stroke variables are undefined
   ansible.builtin.assert:
     that:
       - vars[item] is defined
@@ -15,7 +15,7 @@
   when: strongswan_mode == "stroke"
   tags: ansible-role-strongswan
 
-- name: Fail if required variables are undefined (vici)
+- name: Fail if required Strongswan vici variables are undefined
   ansible.builtin.assert:
     that:
       - vars[item] is defined
@@ -27,7 +27,7 @@
   when: strongswan_mode == "vici"
   tags: ansible-role-strongswan
 
-- name: Fail if required variables are undefined
+- name: Fail if required Strongswan variables are undefined
   ansible.builtin.assert:
     that:
       - vars[item] is defined

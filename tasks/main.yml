@@ -2,20 +2,20 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ---
-- name: Load OS-specific variables
+- name: Ensure Strongswan OS-specific variables are loaded
   ansible.builtin.include_vars: "{{ role_path }}/vars/{{ ansible_distribution }}.yml"
   tags: ansible-role-strongswan
 
-- name: Run configuration validation tasks
+- name: Validate Strongswan configuration
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
   tags: ansible-role-strongswan
 
-- name: Run stroke tasks
+- name: Perform Strongswan stroke tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/stroke.yml"
   when: strongswan_mode == "stroke"
   tags: ansible-role-strongswan
 
-- name: Run vici tasks
+- name: Perform Strongswan vici tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/vici.yml"
   when: strongswan_mode == "vici"
   tags: ansible-role-strongswan

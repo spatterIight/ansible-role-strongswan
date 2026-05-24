@@ -2,17 +2,17 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ---
-- name: Disable vici mode when using stroke
+- name: Ensure Strongswan vici mode is disabled when using stroke
   tags: ansible-role-strongswan
   block:
-    - name: Stop and disable strongswan service (vici)
+    - name: Ensure Strongswan vici service is stopped and disabled
       ansible.builtin.service:
         name: "{{ strongswan_vici_service_name }}"
         state: stopped
         enabled: false
       failed_when: false
 
-    - name: Remove vici configuration files
+    - name: Ensure Strongswan vici configuration files do not exist
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
@@ -21,22 +21,22 @@
         - "{{ strongswan_base_path }}/swanctl"
       failed_when: false
 
-    - name: Remove vici packages
+    - name: Ensure Strongswan vici packages are removed
       ansible.builtin.package:
         name: "{{ item }}"
         state: absent
       loop: "{{ strongswan_vici_packages }}"
       failed_when: false
 
-- name: Install the Strongswan packages (stroke)
+- name: Ensure Strongswan stroke packages are installed
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop: "{{ strongswan_stroke_packages + strongswan_both_packages + strongswan_additional_packages }}"
-  notify: Restart Strongswan (stroke)
+  notify: Restart Strongswan stroke
   tags: ansible-role-strongswan
 
-- name: Write ipsec.conf
+- name: Ensure ipsec.conf is present
   ansible.builtin.template:
     src: "{{ role_path }}/templates/ipsec.conf.j2"
     dest: "{{ strongswan_base_path }}/ipsec.conf"
@@ -44,10 +44,10 @@
     group: root
     mode: "0644"
     lstrip_blocks: true
-  notify: Restart Strongswan (stroke)
+  notify: Restart Strongswan stroke
   tags: ansible-role-strongswan
 
-- name: Write ipsec.secrets
+- name: Ensure ipsec.secrets is present
   ansible.builtin.template:
     src: "{{ role_path }}/templates/ipsec.secrets.j2"
     dest: "{{ strongswan_base_path }}/ipsec.secrets"
@@ -55,10 +55,10 @@
     group: root
     mode: "0600"
     lstrip_blocks: true
-  notify: Restart Strongswan (stroke)
+  notify: Restart Strongswan stroke
   tags: ansible-role-strongswan
 
-- name: Write strongswan.conf
+- name: Ensure strongswan.conf is present
   ansible.builtin.template:
     src: "{{ role_path }}/templates/strongswan.conf.j2"
     dest: "{{ strongswan_base_path }}/strongswan.conf"
@@ -66,5 +66,5 @@
     group: root
     mode: "0644"
     lstrip_blocks: true
-  notify: Restart Strongswan (stroke)
+  notify: Restart Strongswan stroke
   tags: ansible-role-strongswan
