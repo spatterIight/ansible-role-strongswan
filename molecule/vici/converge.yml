@@ -1,11 +1,11 @@
+# SPDX-FileCopyrightText: 2025 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 ---
-- name: Gather Facts from All Hosts
+- name: Gather facts from all hosts
   hosts: all
   become: true
   gather_facts: true
-  tasks:
-    - name: Ensure all facts are gathered
-      ansible.builtin.setup:
 
 - name: Configure StrongSwan Peer 1
   hosts: peer1

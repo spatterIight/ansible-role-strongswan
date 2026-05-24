@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 ---
 driver:
   name: docker
@@ -35,6 +38,9 @@ provisioner:
   inventory:
     group_vars:
       all:
-        strongswan_psk: "MySecurePreSharedKey123!"
+        strongswan_psk: MySecurePreSharedKey123!
+  env:
+    # Workaround for https://github.com/ansible/molecule/issues/4391
+    ANSIBLE_ROLES_PATH: ${MOLECULE_PROJECT_DIRECTORY}/..:/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:~/.ansible/roles
 verifier:
   name: ansible

@@ -9,12 +9,11 @@ This role supports configuring both the deprecated (but functional) `stroke` plu
 ## Supported distributions
 
 This role has been tested as working on the following Linux distributions:
-  - Ubuntu 24.04 (Noble Numbat)
-  - Ubuntu 22.04 (Jammy Jellyfish)
-  - Debian 13 (Trixie)
-  - Debian 12 (Bookworm)
 
-The Molecule directory contains scenarios for each supported distribution. The testing configuration is a simple Point-to-Point VPN. See the [Molecule README](./molecule/README.md) for instructions on testing.
+- Ubuntu 24.04 (Noble Numbat)
+- Ubuntu 22.04 (Jammy Jellyfish)
+- Debian 13 (Trixie)
+- Debian 12 (Bookworm)
 
 ## Role Variables
 
@@ -42,7 +41,7 @@ The Molecule directory contains scenarios for each supported distribution. The t
   roles:
     - ansible-role-strongswan
   vars:
-    # Basic site-to-site VPN configuration    
+    # Basic site-to-site VPN configuration
     swanctl_conf: |
       connections {
         site-to-site {
@@ -73,7 +72,7 @@ The Molecule directory contains scenarios for each supported distribution. The t
           reauth_time = 24h
         }
       }
-      
+
       secrets {
         ike-psk {
           id = site1.example.com
@@ -99,7 +98,7 @@ The Molecule directory contains scenarios for each supported distribution. The t
   vars:
     # Basic site-to-site VPN configuration
     strongswan_mode: stroke
-    
+
     ipsec_conf: |
       config setup
         charondebug="ike 1, knl 1, cfg 0"
@@ -123,3 +122,9 @@ The Molecule directory contains scenarios for each supported distribution. The t
     ipsec_secrets: |
       192.168.1.1 192.168.2.1 : PSK "MySecurePreSharedKey123!"
 ```
+
+## Molecule
+
+This role supports [Molecule](https://docs.ansible.com/projects/molecule/), an Ansible testing framework designed for developing and testing Ansible collections, playbooks, and roles.
+
+Refer to [this page](./molecule/README.md) for details about how to utilize it.

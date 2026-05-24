@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 ---
 strongswan_both_packages:
   - libstrongswan-extra-plugins # This seems to be required in Debian for some reason
